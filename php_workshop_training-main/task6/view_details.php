@@ -8,18 +8,16 @@ session_start();
     <title>View Details</title>
 </head>
 <body>
-
 <form action="view_details.php" method="get">
     Search: <input type="text" name="query">
     <input type="submit" value="Search">
-    Sort by: <select name="sort" value="sort">
+    sort by:<select name="sort" value="sort">
     <option value="name">name</option>
     <option value="usn">usn</option>
     <option value="phone">phone</option>
     <input type="submit" value="Sort">
+<!-- Search button to search for entries -->
 
-    <!-- Add a sort button to sort by values -->
-</form>
     <h2>View Details</h2>
 
     <!-- Display Records -->
@@ -57,14 +55,6 @@ session_start();
             }
 
         $sql = "SELECT * FROM students WHERE name LIKE '%$search_query%' OR usn LIKE '%$search_query%' OR phone LIKE '%$search_query%'";
-
-        $sort_by = "name";
-        if (isset($_GET['sort'])) {
-            $sort_by = $_GET['sort'];
-        }
-
-        $sql = "SELECT * FROM students ORDER BY $sort_by";
-
         $result = $conn->query($sql);
         if ($result->num_rows > 0) {
             while($row = $result->fetch_assoc()) {
